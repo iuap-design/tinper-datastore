@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../dist/yonyou-yyy.js"></script>
+    <script>
+      var _yyy = _yyy || [];
+      (function(){
+        var user;
+        function getCookie(name) {
+          return (name = new RegExp("(^| )" + name + "=([^;]*)(;|$)").exec(document.cookie)) ? name[2] : null
+        }
+        function getUser() {
+          return user || function () {
+            var yht_username = 'yonyou_uname'
+            var yht_userid = 'yonyou_uid'
+            var userid = getCookie(yht_userid)
+            var username = getCookie(yht_username)
+            if (userid && username) {
+              user = {
+                userCode: decodeURIComponent(userid),
+                userName: decodeURIComponent(username)
+              }
+            } else {
+              user = localStorage.getItem('user')
+              user = user && JSON.parse(JSON.parse(user).value)
+            }
+            return user
+          }()
+        }
+        _yyy.push(["userid", function(){
+          var u = getUser()
+          return u.userCode || ""
+        }]);
+        _yyy.push(["username", function(){
+          var u = getUser()
+          return u.userName || ""
+        }]);
+      }());
+        
+    </script>
+</body>
+</html>
